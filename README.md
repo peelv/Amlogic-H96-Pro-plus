@@ -11,14 +11,6 @@ gpu       mali t820 mp3
 opengl version supported 3.2
 
 ​
-
-```{r, engine='bash', count_lines}
-uname -a
-```
-
-
-Linux localhost 3.14.29 #12 SMP PREEMPT Thu Dec 29 22:12:20 CST 2016 armv8l
-
 ### install android sdk
 
 https://wiki.archlinux.org/index.php/android
@@ -112,10 +104,10 @@ reload udev rules
 sudo udevadm control --reload-rules
 ```
 
-**unfortunately it doesnt work and I couldnt find out why...**
+**unfortunately it doesnt work, I still cannot connect to the device using adb on USB.** 
 
 
-## IP connect - working
+## use IP to connect via adb - working
 
 ```{r, engine='bash', count_lines}
 adb kill-server
@@ -139,13 +131,17 @@ adb backup -all -apk -f factorybackup_all.ab
 
 on the android device you have to confirm the backup and add an optional password.
 
-## backup wiederherstellen
+## collecting data
 
 ```{r, engine='bash', count_lines}
-adb restore factorybackup_all.ab
+adb shell
 ```
+you can switch to root without entering a password. 
 
-## collecting data
+```{r, engine='bash', count_lines}
+uname -a
+Linux localhost 3.14.29 #12 SMP PREEMPT Thu Dec 29 22:12:20 CST 2016 armv8l
+```
 
 ### cpuinfo
 
@@ -185,6 +181,12 @@ MemAvailable:    2375364 kB
 
 
 ## more adb commands
+
+backup wiederherstellen
+
+```{r, engine='bash', count_lines}
+adb restore factorybackup_all.ab
+```
 
 list all installed packages
 
