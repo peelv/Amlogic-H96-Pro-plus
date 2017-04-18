@@ -5,17 +5,17 @@ my work on amlogic h96 pro + s912 (aliexpress) with the goal to install arch lin
 ## Specifications
 
 ARMv8-A 
-
 board	  q9377 
-
 cpu       cortex-a53 aarch64 rev 4
-
 gpu       mali t820 mp3
-
 opengl version supported 3.2
 
+​
 
-"uname -a"
+```{r, engine='bash', count_lines}
+uname -a
+```
+
 
 Linux localhost 3.14.29 #12 SMP PREEMPT Thu Dec 29 22:12:20 CST 2016 armv8l
 
@@ -32,17 +32,21 @@ used USB Male to Male cable to connect to pc running Manjaro Gnome
 
 the device is not recognized as usb device
 
-"adb devices"
+```{r, engine='bash', count_lines}
+adb devices
+```
 
 shows no device connected
 
 monitor udev events
 -------------------
 
-"sudo udevadm monitor --environment --udev"
-
+```{r, engine='bash', count_lines}
+sudo udevadm monitor --environment --udev
+```
 unplugging the device from usb then shows valuable infos:
 
+```{r, engine='bash', count_lines}
 "UDEV  [328.600485] remove   /devices/pci0000:00/0000:00:1d.0/usb4/4-1/4-1.4/4-1.4:1.0 (usb)
 ACTION=remove
 DEVPATH=/devices/pci0000:00/0000:00:1d.0/usb4/4-1/4-1.4/4-1.4:1.0
@@ -81,18 +85,22 @@ SEQNUM=3031
 SUBSYSTEM=usb
 TYPE=0/0/0
 USEC_INITIALIZED=3771686"
+```
 
 create udev rule according to output
 ------------------------------------
 
-"sudo gedit /usr/lib/udev/rules.d/51-android.rules"
+```{r, engine='bash', count_lines}
+sudo gedit /usr/lib/udev/rules.d/51-android.rules
+```
 
 "SUBSYSTEM=="usb", ATTR{idVendor}=="1b8e", MODE="0666", GROUP="adbusers"
 SUBSYSTEM=="usb",ATTR{idVendor}=="1b8e",ATTR{idProduct}=="c003",SYMLINK+="android_adb"
 SUBSYSTEM=="usb",ATTR{idVendor}=="1b8e",ATTR{idProduct}=="c003",SYMLINK+="android_fastboot"
 
-
-"sudo nano /etc/udev/rules.d/51-android.rules"
+```{r, engine='bash', count_lines}
+sudo nano /etc/udev/rules.d/51-android.rules
+```
 
 SUBSYSTEM=="usb", ATTR{idVendor}=="1b8e", ATTR{idProduct}=="c003", MODE="0666", GROUP="adbusers"
 
@@ -100,42 +108,52 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="1b8e", ATTR{idProduct}=="c003", MODE="0666", 
 reload udev rules
 -----------------
 
-"sudo udevadm control --reload-rules"
+```{r, engine='bash', count_lines}
+sudo udevadm control --reload-rules
+```
 
 **unfortunately it doesnt work and I couldnt find out why...**
 
 
-
 ## IP connect - working
 
-"adb kill-server"
-"adb connect 192.168.0.173
+```{r, engine='bash', count_lines}
+adb kill-server
+ adb connect 192.168.0.173
  daemon not running. starting it now at tcp:5037 
  daemon started successfully 
-connected to 192.168.0.173:5555"
+connected to 192.168.0.173:5555
+```
 
-"adb devices"
-"List of devices attached
-192.168.0.173:5555	device"
+```{r, engine='bash', count_lines}
+adb devices
+List of devices attached
+192.168.0.173:5555	device
+```
 
 backup system and apps to local hdd
 -----------------------------------
 
-"adb backup -all -apk -f factorybackup_all.ab"
+```{r, engine='bash', count_lines}
+adb backup -all -apk -f factorybackup_all.ab
+```
 
 on the android device you have to confirm the backup and add an optional password.
 
 backup wiederherstellen
 -----------------------
 
-"adb restore factorybackup_all.ab"
+```{r, engine='bash', count_lines}
+adb restore factorybackup_all.ab
+```
 
 ## collecting data
 
 cpuinfo
 -------
 
-"root@q9377:/ # cat /proc/cpuinfo"
+```{r, engine='bash', count_lines}
+root@q9377:/ # cat /proc/cpuinfo
 
 Processor	: AArch64 Processor rev 4 (aarch64)
 processor	: 0
@@ -155,40 +173,54 @@ CPU revision	: 4
 
 Hardware	: Amlogic
 Serial		: 220a82001eb3087f8ede4b6cbf4e9279
+```
 
 meminfo
 -------
 
-"root@q9377:/ # cat /proc/meminfo"
+```{r, engine='bash', count_lines}
+root@q9377:/ # cat /proc/meminfo
 
 MemTotal:        2878416 kB
 MemFree:         1403056 kB
 MemAvailable:    2375364 kB
+```
 
 more adb commands
 -----------------
 
 list all installed packages
 
-"pm list packages"
+```{r, engine='bash', count_lines}
+pm list packages
+```
 
 apk ordner mit option -f anzeigen
 
-"pm list packages -f"
+```{r, engine='bash', count_lines}
+pm list packages -f
+```
 
-
-"adb reboot bootloader"
+```{r, engine='bash', count_lines}
+adb reboot bootloader
+```
 
 rebooted to stock android, no accessible bootloader
 
 screenshot from android
 
-"adb screencap /path/filename.png"
+```{r, engine='bash', count_lines}
+adb screencap /path/filename.png
+```
 
 move local data to android device
 
-"adb push filename /path_on_device/" 
+```{r, engine='bash', count_lines}
+adb push filename /path_on_device/
+```
 
 daten von android device holen
 
-"adb pull /path/filename"
+```{r, engine='bash', count_lines}
+adb pull /path/filename
+```
