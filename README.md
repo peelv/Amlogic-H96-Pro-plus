@@ -19,14 +19,13 @@ uname -a
 
 Linux localhost 3.14.29 #12 SMP PREEMPT Thu Dec 29 22:12:20 CST 2016 armv8l
 
-""install android sdk**
+### install android sdk
 
 https://wiki.archlinux.org/index.php/android
 
-## connect to device
+### connect to device
 
-USB connect - currently not working
------------------------------------
+#### USB connect - currently not working
 
 used USB Male to Male cable to connect to pc running Manjaro Gnome 
 
@@ -38,8 +37,9 @@ adb devices
 
 shows no device connected
 
-monitor udev events
--------------------
+#### monitor udev events
+
+start monitoring of udev events
 
 ```{r, engine='bash', count_lines}
 sudo udevadm monitor --environment --udev
@@ -47,7 +47,7 @@ sudo udevadm monitor --environment --udev
 unplugging the device from usb then shows valuable infos:
 
 ```{r, engine='bash', count_lines}
-"UDEV  [328.600485] remove   /devices/pci0000:00/0000:00:1d.0/usb4/4-1/4-1.4/4-1.4:1.0 (usb)
+UDEV  [328.600485] remove   /devices/pci0000:00/0000:00:1d.0/usb4/4-1/4-1.4/4-1.4:1.0 (usb)
 ACTION=remove
 DEVPATH=/devices/pci0000:00/0000:00:1d.0/usb4/4-1/4-1.4/4-1.4:1.0
 DEVTYPE=usb_interface
@@ -84,7 +84,7 @@ PRODUCT=1b8e/c003/20
 SEQNUM=3031
 SUBSYSTEM=usb
 TYPE=0/0/0
-USEC_INITIALIZED=3771686"
+USEC_INITIALIZED=3771686
 ```
 
 create udev rule according to output
@@ -94,7 +94,7 @@ create udev rule according to output
 sudo gedit /usr/lib/udev/rules.d/51-android.rules
 ```
 
-"SUBSYSTEM=="usb", ATTR{idVendor}=="1b8e", MODE="0666", GROUP="adbusers"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1b8e", MODE="0666", GROUP="adbusers"
 SUBSYSTEM=="usb",ATTR{idVendor}=="1b8e",ATTR{idProduct}=="c003",SYMLINK+="android_adb"
 SUBSYSTEM=="usb",ATTR{idVendor}=="1b8e",ATTR{idProduct}=="c003",SYMLINK+="android_fastboot"
 
@@ -131,8 +131,7 @@ List of devices attached
 192.168.0.173:5555	device
 ```
 
-backup system and apps to local hdd
------------------------------------
+## backup system and apps to local hdd
 
 ```{r, engine='bash', count_lines}
 adb backup -all -apk -f factorybackup_all.ab
@@ -140,8 +139,7 @@ adb backup -all -apk -f factorybackup_all.ab
 
 on the android device you have to confirm the backup and add an optional password.
 
-backup wiederherstellen
------------------------
+## backup wiederherstellen
 
 ```{r, engine='bash', count_lines}
 adb restore factorybackup_all.ab
@@ -149,8 +147,8 @@ adb restore factorybackup_all.ab
 
 ## collecting data
 
-cpuinfo
--------
+### cpuinfo
+
 
 ```{r, engine='bash', count_lines}
 root@q9377:/ # cat /proc/cpuinfo
@@ -175,8 +173,7 @@ Hardware	: Amlogic
 Serial		: 220a82001eb3087f8ede4b6cbf4e9279
 ```
 
-meminfo
--------
+### meminfo
 
 ```{r, engine='bash', count_lines}
 root@q9377:/ # cat /proc/meminfo
@@ -186,8 +183,8 @@ MemFree:         1403056 kB
 MemAvailable:    2375364 kB
 ```
 
-more adb commands
------------------
+
+## more adb commands
 
 list all installed packages
 
