@@ -3,13 +3,14 @@ my work on amlogic h96 pro + s912 (aliexpress) with the goal to install arch lin
 
 
 ##Specifications
+
 ARMv8-A 
 board	  q9377 
 cpu       cortex-a53 aarch64 rev 4
 gpu       mali t820 mp3
 opengl version supported 3.2
 
-uname -a
+'uname -a'
 Linux localhost 3.14.29 #12 SMP PREEMPT Thu Dec 29 22:12:20 CST 2016 armv8l
 
 ""install android sdk**
@@ -25,12 +26,13 @@ used USB Male to Male cable to connect to pc running Manjaro Gnome
 
 the device is not recognized as usb device
 
-adb devices 
+'adb devices'
 shows no device connected
 
 monitor udev events
 -------------------
-sudo udevadm monitor --environment --udev
+
+'sudo udevadm monitor --environment --udev'
 
 unplugging the device from usb then shows valuable infos:
 
@@ -76,55 +78,58 @@ USEC_INITIALIZED=3771686
 create udev rule according to output
 ------------------------------------
 
-sudo gedit /usr/lib/udev/rules.d/51-android.rules 
+'sudo gedit /usr/lib/udev/rules.d/51-android.rules'
 
-#       Amlogic H96 pro +
 SUBSYSTEM=="usb", ATTR{idVendor}=="1b8e", MODE="0666", GROUP="adbusers"
 SUBSYSTEM=="usb",ATTR{idVendor}=="1b8e",ATTR{idProduct}=="c003",SYMLINK+="android_adb"
 SUBSYSTEM=="usb",ATTR{idVendor}=="1b8e",ATTR{idProduct}=="c003",SYMLINK+="android_fastboot"
 
 
-sudo nano /etc/udev/rules.d/51-android.rules 
+'sudo nano /etc/udev/rules.d/51-android.rules'
 
-# Amlogic S912 H96 pro +
 SUBSYSTEM=="usb", ATTR{idVendor}=="1b8e", ATTR{idProduct}=="c003", MODE="0666", GROUP="adbusers"
 
 
 reload udev rules
 -----------------
-sudo udevadm control --reload-rules
 
-unfortunately it doesnt work and I couldnt find out why...
+'sudo udevadm control --reload-rules'
+
+**unfortunately it doesnt work and I couldnt find out why...**
 
 
 
-**IP connect - working
+##IP connect - working
 
-adb kill-server
-adb connect 192.168.0.173
+'adb kill-server'
+'adb connect 192.168.0.173
  daemon not running. starting it now at tcp:5037 
  daemon started successfully 
-connected to 192.168.0.173:5555
+connected to 192.168.0.173:5555'
 
-adb devices
-List of devices attached
-192.168.0.173:5555	device
+'adb devices'
+'List of devices attached
+192.168.0.173:5555	device'
 
 backup system and apps to local hdd
 -----------------------------------
-adb backup -all -apk -f factorybackup_all.ab
+
+'adb backup -all -apk -f factorybackup_all.ab'
 
 on the android device you have to confirm the backup and add an optional password.
 
 backup wiederherstellen
 -----------------------
-adb restore factorybackup_all.ab
+
+'adb restore factorybackup_all.ab'
 
 ##collecting data
 
 cpuinfo
 -------
-127|root@q9377:/ # cat /proc/cpuinfo
+
+'root@q9377:/ # cat /proc/cpuinfo'
+
 Processor	: AArch64 Processor rev 4 (aarch64)
 processor	: 0
 processor	: 1
@@ -146,7 +151,9 @@ Serial		: 220a82001eb3087f8ede4b6cbf4e9279
 
 meminfo
 -------
-root@q9377:/ # cat /proc/meminfo
+
+'root@q9377:/ # cat /proc/meminfo'
+
 MemTotal:        2878416 kB
 MemFree:         1403056 kB
 MemAvailable:    2375364 kB
@@ -154,25 +161,27 @@ MemAvailable:    2375364 kB
 more adb commands
 -----------------
 
-- list all installed packages
+list all installed packages
 
-pm list packages 
+'pm list packages'
 
-- apk ordner mit option -f anzeigen
+apk ordner mit option -f anzeigen
 
-pm list packages -f
+'pm list packages -f'
 
 
-adb reboot bootloader 
+'adb reboot bootloader'
+
 rebooted to stock android, no accessible bootloader
 
-- screenshot from android
-adb screencap /path/filename.png
+screenshot from android
 
-- move local data to android device
+'adb screencap /path/filename.png'
 
-adb push filename /path_on_device/ 
+move local data to android device
 
-- daten von android device holen
+'adb push filename /path_on_device/' 
 
-adb pull /path/filename 
+daten von android device holen
+
+'adb pull /path/filename'
