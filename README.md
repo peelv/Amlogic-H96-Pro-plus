@@ -4,6 +4,8 @@ my work on amlogic h96 pro + s912 (aliexpress) with the goal to install arch lin
 
 ## Specifications
 
+[Link to Aliexpress](https://www.aliexpress.com/item/3-16GB-Amlogic-S912-H96-Pro-Octa-Core-Android-6-0-2-4G-5GHz-Wifi-HD2/32758232218.html?spm=2114.01010208.3.29.9hnBMv&ws_ab_test=searchweb0_0,searchweb201602_4_10152_10065_10151_10068_10136_10137_10060_10138_10155_10062_10156_10134_10154_10056_10055_10054_10059_10099_10103_10102_10096_10148_10147_10052_10053_10142_10107_10050_10143_10051_9982_10084_10083_10080_10082_10081_10177_10110_10111_10112_10113_10114_10078_10079_10073_10070_10123_10124-9982,searchweb201603_9,afswitch_1,ppcSwitch_7&btsid=d3b855aa-265a-46fc-988c-f5d06bd93689&algo_expid=31abaca9-8b8b-4659-87a0-cf5b217e1883-3&algo_pvid=31abaca9-8b8b-4659-87a0-cf5b217e1883)
+
 ARMv8-A 
 board	  q9377 
 cpu       cortex-a53 aarch64 rev 4
@@ -109,6 +111,8 @@ sudo udevadm control --reload-rules
 
 ## use IP to connect via adb - working
 
+get the android box's IP adress and use adb to connect :-)
+
 ```{r, engine='bash', count_lines}
 adb kill-server
  adb connect 192.168.0.173
@@ -178,6 +182,24 @@ MemTotal:        2878416 kB
 MemFree:         1403056 kB
 MemAvailable:    2375364 kB
 ```
+
+## Links
+
+Mali t820 Midgard
+
+### Overview
+
+https://developer.arm.com/products/graphics-and-multimedia/mali-gpus/mali-t800-series-gpu
+
+### download linux driver
+
+https://developer.arm.com/products/software/mali-drivers/midgard-kernel
+
+TX011-SW-99002-r17p0-01rel0.tgz
+
+### Mali Ressources
+
+https://developer.arm.com/graphics/
 
 
 ## more adb commands
