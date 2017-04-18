@@ -1,9 +1,10 @@
-# Amlogic-H96-Pro-
+# Amlogic-H96-Pro-plus
 my work on amlogic h96 pro + s912 (aliexpress) with the goal to install arch linux
 
-**Specifications**
-ARMv8-A
-board	  q9377
+
+##Specifications
+ARMv8-A 
+board	  q9377 
 cpu       cortex-a53 aarch64 rev 4
 gpu       mali t820 mp3
 opengl version supported 3.2
@@ -15,7 +16,7 @@ Linux localhost 3.14.29 #12 SMP PREEMPT Thu Dec 29 22:12:20 CST 2016 armv8l
 
 https://wiki.archlinux.org/index.php/android
 
-**connect to device**
+##connect to device
 
 USB connect - currently not working
 -----------------------------------
@@ -119,7 +120,7 @@ backup wiederherstellen
 -----------------------
 adb restore factorybackup_all.ab
 
-**collecting data**
+##collecting data
 
 cpuinfo
 -------
