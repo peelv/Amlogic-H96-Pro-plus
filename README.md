@@ -204,7 +204,7 @@ https://developer.arm.com/graphics/
 
 ## more adb commands
 
-backup wiederherstellen
+restore backup
 
 ```{r, engine='bash', count_lines}
 adb restore factorybackup_all.ab
@@ -216,7 +216,7 @@ list all installed packages
 pm list packages
 ```
 
-apk ordner mit option -f anzeigen
+show apk folder with option -f 
 
 ```{r, engine='bash', count_lines}
 pm list packages -f
@@ -225,6 +225,8 @@ pm list packages -f
 ```{r, engine='bash', count_lines}
 adb reboot bootloader
 ```
+
+result:
 
 rebooted to stock android, no accessible bootloader
 
@@ -240,7 +242,7 @@ move local data to android device
 adb push filename /path_on_device/
 ```
 
-daten von android device holen
+get data from android device
 
 ```{r, engine='bash', count_lines}
 adb pull /path/filename
