@@ -1,5 +1,5 @@
 # Amlogic-H96-Pro-plus
-my work on amlogic h96 pro + s912 (aliexpress) with the goal to install arch linux
+my work on amlogic h96 pro + s912 (aliexpress) with the goal to install arch linux and use it as a multimedia pc or desktop replacement.
 
 
 ## Specifications
@@ -15,6 +15,8 @@ opengl version supported 3.2
 ​
 ### install android sdk
 
+As I am using Manjaro Gnome, these steps apply:
+
 https://wiki.archlinux.org/index.php/android
 
 ### connect to device
@@ -23,7 +25,7 @@ https://wiki.archlinux.org/index.php/android
 
 used USB Male to Male cable to connect to pc running Manjaro Gnome 
 
-the device is not recognized as usb device
+the device is not recognized as usb device in dmesg, df -h, gparted, so no adb connect
 
 ```{r, engine='bash', count_lines}
 adb devices
@@ -85,7 +87,7 @@ create udev rule according to output
 ------------------------------------
 
 ```{r, engine='bash', count_lines}
-sudo gedit /usr/lib/udev/rules.d/51-android.rules
+sudo nano /usr/lib/udev/rules.d/51-android.rules
 ```
 
 SUBSYSTEM=="usb", ATTR{idVendor}=="1b8e", MODE="0666", GROUP="adbusers"
