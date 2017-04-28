@@ -203,6 +203,11 @@ TX011-SW-99002-r17p0-01rel0.tgz
 
 https://developer.arm.com/graphics/
 
+## status of work
+
+waiting for development work on gpu driver for linux. 
+
+I was able to boot the H96 with an unstable beta version of LibreElec.
 
 ## more adb commands
 
